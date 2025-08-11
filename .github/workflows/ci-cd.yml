@@ -1,0 +1,53 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - predevelopment
+  pull_request:
+    branches:
+      - predevelopment
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the latest code from your repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Specify the Node version your project uses
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Build the project
+      - name: Build project
+        run: npm run build
+
+      # Rename build folder to seeyouinarena.com
+      - name: Rename build folder
+        run: mv ./dist ./seeyouinarena.com
+
+      # Copy renamed build folder to Lightsail instance via SCP
+      - name: Deploy to VPS
+        uses: appleboy/scp-action@v0.1.6
+        with:
+          host: ${{ secrets.HOST }} # VPS IP
+          username: ${{ secrets.USERNAME }} # default username for VPS Ubuntu instance
+          password: ${{ secrets.PASSWORD }} # Your SSH private key stored in secrets
+          source: "./seeyouinarena.com/*" # Directory containing the renamed build files
+          target: "/var/www/html/" # Path where the build files will be copied on the server
+          overwrite: true
+          port: 22 # Default SSH port
+
+      # Restart Nginx
+      - name: Restart Nginx
+        run: |
+          sshpass -p "${{ secrets.PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'sudo systemctl restart nginx'
