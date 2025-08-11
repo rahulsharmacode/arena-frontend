@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    
+    --accent: 210 40% 94%;
+    --accent-foreground: 222 47% 11%;
+    
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 222 47% 11%;
+    
+    --radius: 0.75rem;
+    
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5% 26%;
+    --sidebar-primary: 240 6% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 5% 96%;
+    --sidebar-accent-foreground: 240 6% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217 91% 60%;
+  }
+
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 210 40% 92%;
+    --card: 0 0% 0%;
+    --card-foreground: 210 40% 92%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 210 40% 92%;
+    --ring: 210 40% 70%;
+    --sidebar-background: 0 0% 0%;
+    --sidebar-foreground: 210 40% 92%;
+    --sidebar-primary: 210 40% 20%;
+    --sidebar-primary-foreground: 210 40% 92%;
+    --sidebar-accent: 0 0% 0%;
+    --sidebar-accent-foreground: 210 40% 92%;
+    --sidebar-border: 210 40% 30%;
+    --sidebar-ring: 210 40% 92%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 210 40% 20%;
+    --secondary-foreground: 210 40% 92%;
+    --muted: 0 0% 0%;
+    --muted-foreground: 210 40% 65%;
+    --accent: 0 0% 0%;
+    --accent-foreground: 210 40% 92%;
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 210 40% 30%;
+    --input: 210 40% 20%;
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased overflow-x-hidden;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium tracking-tight;
+  }
+
+  img {
+    @apply select-none;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/60 dark:bg-black/60 backdrop-blur-lg border border-white/20 dark:border-black/20 shadow-subtle;
+  }
+  
+  .glassmorphism {
+    @apply bg-white/80 dark:bg-black/80 backdrop-blur-md border border-white/40 dark:border-black/40 shadow-subtle;
+  }
+  
+  .button-effect {
+    @apply transition-transform duration-200 active:scale-[0.97];
+  }
+  
+  .subtle-ring {
+    @apply ring-1 ring-black/5 dark:ring-white/10;
+  }
+
+  .focus-ring {
+    @apply ring-2 ring-primary/10 outline-none;
+  }
+  
+  .input-effect {
+    @apply transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:outline-none;
+  }
+}
+
+@layer utilities {
+  .animated-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .page-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12;
+  }
+
+  .chat-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 100vw;
+    height: 400px; /* Adjust as needed */
+    z-index: 1000;
+    background: #fff;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    pointer-events: auto;
+  }
+}
+
+body, html, #root {
+  overflow: visible !important;
+  position: static !important;
+}
