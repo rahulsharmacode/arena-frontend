@@ -28,6 +28,16 @@
 <meta name="twitter:description" content="Dive into meaningful conversations on trending topics and share your perspective with a global community." />
 <meta name="twitter:image" content="https://seeyouinarena.com/images/arena.png" />
 
+<!--- one signal --->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "9cf13617-cdc5-43ac-9a2f-b1c21acf3732",
+    });
+  });
+</script>
 
   </head>
 
