@@ -375,7 +375,7 @@ const ConversationCard: React.FC<Props> = ({ data = [] ,isPending=false}) => {
     const handleComment = ({ type = "post", content }: { type: "message" | "post", content: string }) => {
         mutate({
             endpoint: endpoint["comment"] + `${showComments}`,
-            data: { content, type, parent: showComments },
+            data: { content, type, parent: showComments,post: showComments },
             method: METHODS.POST
         }, {
             onSuccess: ({ status, data }) => {
@@ -389,7 +389,8 @@ const ConversationCard: React.FC<Props> = ({ data = [] ,isPending=false}) => {
                     let newEvent = eventData?.map((item) => item._id == showComments ? ({ ...item, comments: item["comments"] + 1 }) : item);
                     seteventData(() => newEvent);
                 };
-                setCommentInput(() => "")
+
+                setCommentInput(() => "");
             }
         })
     };
